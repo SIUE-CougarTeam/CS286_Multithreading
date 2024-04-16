@@ -175,22 +175,45 @@ int main( int argc, char* argv[] )
 	///////////////////////  YOUR CODE HERE       ///////////////////////
 	///////////////         Make it parallel!	 ////////////////////
 	/////////////////////////////////////////////////////////////////////
+
+	// #pragma omp parallel
+	// {
+		//  TODO
+		// int omp_get_thread_num(); // Returns the thread id
+		// int omp_get_num_threads(); // Returns the amount of threads running
+		// void 		
+	// }
+
+//		#pragma omp critical // This forces single thread execution at a time 'serialize'
+		// #pragma omp parallel for reduction(+:count) can only do one variable, but struct allows us to circumvent this
 	
-	int maxi, maxj, sum; // Use limits.h for finding the smallest integer if the input data is unknown
-	double avg, max;
+	int maxi, maxj; // Use limits.h for finding the smallest integer if the input data is unknown
+	double max;
+
+#pragma omp parallel for // A multithreaded for loop
 	for (int i = 1; i < rows-1; i++) {
 		for (int j = 1; j < cols-1; j++) {
-			sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
+			int sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
 				data[i][j-1] + data[i][j] + data[i][j+1] +
 				data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
-				avg = sum / 9.0; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
+			double avg = sum / 9.0; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
+
+			if (avg > max) 
+			{
+
+#pragma omp critical
+			{
 				if (avg > max) {
 					max = avg;
 					maxi = i;
 					maxj = j;
 				}
+			}
+			}
 		}
 	}
+
+	// TODO Catch (literal) edge cases
 	
 	
 	S1.stop();
@@ -199,5 +222,4 @@ int main( int argc, char* argv[] )
 	cerr << "largest average: " << max << "\nfound at : (" << maxi << ", " << maxj << ")\n";
 	cerr << "elapsed time: " << S1.getTime( ) << endl;
 }
-
 
