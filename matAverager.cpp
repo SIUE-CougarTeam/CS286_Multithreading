@@ -176,12 +176,27 @@ int main( int argc, char* argv[] )
 	///////////////         Make it parallel!	 ////////////////////
 	/////////////////////////////////////////////////////////////////////
 	
+	int maxi, maxj, sum; // Use limits.h for finding the smallest integer if the input data is unknown
+	double avg, max;
+	for (int i = 1; i < rows-1; i++) {
+		for (int j = 1; j < cols-1; j++) {
+			sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
+				data[i][j-1] + data[i][j] + data[i][j+1] +
+				data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
+				avg = sum / 9.0; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
+				if (avg > max) {
+					max = avg;
+					maxi = i;
+					maxj = j;
+				}
+		}
+	}
 	
 	
 	S1.stop();
 	
 	// print out the max value here
-	
+	cerr << "largest average: " << max << "\nfound at : (" << maxi << ", " << maxj << ")\n";
 	cerr << "elapsed time: " << S1.getTime( ) << endl;
 }
 
