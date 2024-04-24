@@ -194,38 +194,48 @@ int main( int argc, char* argv[] )
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
 			int sum = 0;
+			double divisor = 1.0;
 			if (i == 0 && j == 0) {
 				sum = data[i][j] + data[i][j+1] +
 					data[i+1][j] + data[i+1][j+1];
+					divisor = 4.0;
 			} else if (i == 0 && j == (cols-1)) {
 				sum = data[i][j-1] + data[i][j] +
 					data[i+1][j-1] + data[i+1][j];
+					divisor = 4.0;
 			} else if (i == 0) {
 				sum = data[i][j-1] + data[i][j] + data[i][j+1] +
 					data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
+					divisor = 6.0;
 			} else if (i == (rows-1) && j == 0) {
 				sum = data[i-1][j] + data[i-1][j+1] +
 					data[i][j] + data[i][j+1];
+					divisor = 4.0;
 			} else if (i == (rows-1) && j == (cols-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] +
 					data[i][j-1] + data[i][j];
+					divisor = 4.0;
 			} else if (i == (rows-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
 						data[i][j-1] + data[i][j] + data[i][j+1];
+					divisor = 6.0;
 			} else if (j == 0) {
 				sum = data[i-1][j] + data[i-1][j+1] +
 						data[i][j] + data[i][j+1] +
 						data[i+1][j] + data[i+1][j+1];
+					divisor = 6.0;
 			} else if (j == (cols-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] +
 						data[i][j-1] + data[i][j] +
 						data[i+1][j-1] + data[i+1][j];
+					divisor = 6.0;
 			} else {
 				int sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
 					data[i][j-1] + data[i][j] + data[i][j+1] +
 					data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
+					divisor = 9.0;
 			}
-			double avg = sum / 9.0; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
+			double avg = sum / divisor; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
 
 			if (avg > max) 
 			{
