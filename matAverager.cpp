@@ -230,7 +230,7 @@ int main( int argc, char* argv[] )
 						data[i+1][j-1] + data[i+1][j];
 					divisor = 6.0;
 			} else {
-				int sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
+				sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
 					data[i][j-1] + data[i][j] + data[i][j+1] +
 					data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
 					divisor = 9.0;
