@@ -1,3 +1,9 @@
 OpenMP Programming Assignment by:
-Sage Phillips (sagphil@siue.edu)
-Lillian Brunick (lbrunic@siue.edu)
+    Sage Phillips (sagphil@siue.edu)
+    Lillian Brunick (lbrunic@siue.edu)
+
+To run this program:
+    1) Log in to the home.cs server
+    2) In the console, run 'git clone https://github.com/SIUE-CougarTeam/CS286_Multithreading.git' and enter the CS286_Multithreading directory.
+    3) In the console, run 'make' or 'make opt', then run './matavg [input data file] [number of threads to use]' or './matavg rand [number of threads to use] [number of rows] [number of columns] [seed value]' to find the results.
+    4) Rejoice!
