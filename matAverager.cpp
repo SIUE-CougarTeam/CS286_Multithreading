@@ -191,39 +191,39 @@ int main( int argc, char* argv[] )
 	double max;
 
 #pragma omp parallel for // A multithreaded for loop
-	for (int i = 1; i < rows-1; i++) {
-		for (int j = 1; j < cols-1; j++) {
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
 			int sum = 0;
 			if (i == 0 && j == 0) {
 				sum = data[i][j] + data[i][j+1] +
 					data[i+1][j] + data[i+1][j+1];
-			} else if (i == 0 && j == cols) {
+			} else if (i == 0 && j == (cols-1)) {
 				sum = data[i][j-1] + data[i][j] +
 					data[i+1][j-1] + data[i+1][j];
 			} else if (i == 0) {
 				sum = data[i][j-1] + data[i][j] + data[i][j+1] +
 					data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
-			} else if (i == rows && j == 0) {
+			} else if (i == (rows-1) && j == 0) {
 				sum = data[i-1][j] + data[i-1][j+1] +
 					data[i][j] + data[i][j+1];
-			} else if (i == rows && j == cols) {
+			} else if (i == (rows-1) && j == (cols-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] +
 					data[i][j-1] + data[i][j];
-			} else if (i == rows) {
+			} else if (i == (rows-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
 						data[i][j-1] + data[i][j] + data[i][j+1];
 			} else if (j == 0) {
 				sum = data[i-1][j] + data[i-1][j+1] +
 						data[i][j] + data[i][j+1] +
 						data[i+1][j] + data[i+1][j+1];
-			} else if (j == cols) {
+			} else if (j == (cols-1)) {
 				sum = data[i-1][j-1] + data[i-1][j] +
 						data[i][j-1] + data[i][j] +
 						data[i+1][j-1] + data[i+1][j];
 			} else {
-			int sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
-				data[i][j-1] + data[i][j] + data[i][j+1] +
-				data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
+				int sum = data[i-1][j-1] + data[i-1][j] + data[i-1][j+1] +
+					data[i][j-1] + data[i][j] + data[i][j+1] +
+					data[i+1][j-1] + data[i+1][j] + data[i+1][j+1];
 			}
 			double avg = sum / 9.0; // This was avg = sum / 9, which was fully integer division and we would lose decimal precision
 
